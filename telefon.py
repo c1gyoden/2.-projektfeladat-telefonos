@@ -39,3 +39,34 @@ for h in hivasok:
     hivasidoLista.append(hivasido)
 
 print(f'A leghosszabb hívás hossza {max(hivasidoLista)} másodperc, sorszáma: {hivasidoLista.index((max(hivasidoLista)))+1}')
+
+print('\n5. feladat')
+
+idopont = str(input('Kérek egy időpontot szóközzel elválasztva (óra perc másodperc): '))
+idopont = idopont.split()
+while len(idopont) != 3:
+    print('Helytelen adatbevitel!')
+    idopont = str(input('Kérek egy új időpontot szóközzel elválasztva (óra perc másodperc): '))
+    idopont = idopont.split()
+ora = int(idopont[0])
+perc = int(idopont[1])
+masodperc = int(idopont[2])
+
+while ora < 8 or ora > 12 or perc > 60 or perc < 0 or masodperc > 60 or masodperc < 0 or len(idopont) != 3:
+    if ora > 23 or ora < 0 or perc > 60 or perc < 0 or masodperc > 60 or masodperc < 0:
+        print('Az időpont nem létezik!')
+        idopont = str(input('Kérek egy új időpontot szóközzel elválasztva (óra perc másodperc): '))
+    elif ora < 8 or ora > 12:
+        print('Az időpont munkaidőn kívül esik!')
+        idopont = str(input('Kérek egy új időpontot szóközzel elválasztva (óra perc másodperc): '))
+    idopont = idopont.split()    
+    while len(idopont) != 3:
+        print('Helytelen adatbevitel!')
+        idopont = str(input('Kérek egy új időpontot szóközzel elválasztva (óra perc másodperc): '))
+        idopont = idopont.split()
+
+    ora = int(idopont[0])
+    perc = int(idopont[1])
+    masodperc = int(idopont[2])
+
+print(idopont)
