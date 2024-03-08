@@ -14,14 +14,13 @@ f = open('hivas.txt', 'rt')
 hivasok = []
 for sor in f:
     sor = sor.strip().split()
-    print(sor)
     tmp = []
     tmp.append(Szamolas(sor[0], sor[1], sor[2]))
     tmp.append(Szamolas(sor[3], sor[4], sor[5]))
     hivasok.append(tmp)
 
 
-print('3. feladat')
+print('\n3. feladat')
 stat = {}
 for h in hivasok:
     ora = h[0].o
@@ -33,3 +32,10 @@ for h in hivasok:
 for k,v in stat.items():
     print(f'{k} óra - {v} db')
 
+print('\n4. feladat')
+hivasidoLista = []
+for h in hivasok:
+    hivasido = h[1].mpbe() - h[0].mpbe()
+    hivasidoLista.append(hivasido)
+
+print(f'A leghosszabb hívás hossza {max(hivasidoLista)} másodperc, sorszáma: {hivasidoLista.index((max(hivasidoLista)))+1}')
