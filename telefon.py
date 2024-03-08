@@ -8,6 +8,13 @@ class Szamolas():
     def mpbe(self):
         mp = int(self.mp) + 60*int(self.p) + 3600*int(self.o)
         return mp
+    
+def vissza(mp):
+    o = math.floor(mp/3600)
+    mp -= o*3600
+    p = math.floor(mp/60)
+    mp -= p*60
+    return o, p, mp
 
 f = open('hivas.txt', 'rt')
 
@@ -30,7 +37,7 @@ for h in hivasok:
         stat[ora] = 1
 
 for k,v in stat.items():
-    print(f'{k} óra - {v} db')
+    print(f'{k} óra - {v} hívás')
 
 print('\n4. feladat')
 hivasidoLista = []
@@ -69,4 +76,20 @@ while ora < 8 or ora > 12 or perc > 60 or perc < 0 or masodperc > 60 or masodper
     perc = int(idopont[1])
     masodperc = int(idopont[2])
 
-print(idopont)
+idopont = Szamolas(ora, perc, masodperc).mpbe()
+
+hivok = []
+beszelo = 0
+for h in hivasok:
+    if len(hivok) == 0:
+        beszelo += 1
+    
+    kezd = h[0].mpbe()
+    bef = h[1].mpbe()
+    if kezd <= idopont and bef >= idopont:
+        hivok.append([kezd, bef])
+
+if len(hivok) == 0:
+    print("Nem volt beszélő.")
+else:
+    print(f'{len(hivok)-1} hívó várakozik, a {beszelo}. hívóval beszél az alkalmazott')
