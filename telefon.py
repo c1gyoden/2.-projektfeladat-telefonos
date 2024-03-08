@@ -21,4 +21,15 @@ for sor in f:
     hivasok.append(tmp)
 
 
+print('3. feladat')
+stat = {}
+for h in hivasok:
+    ora = h[0].o
+    if ora in stat.keys():
+        stat[ora] += 1
+    else:
+        stat[ora] = 1
+
+for k,v in stat.items():
+    print(f'{k} óra - {v} db')
 
