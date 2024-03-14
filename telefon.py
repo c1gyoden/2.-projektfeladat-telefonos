@@ -143,7 +143,7 @@ for i in range(1, len(munkaidonbelul)):
 
         bekapcsolt.append(BekapcsoltAdatok(azonosito, kezd, bef, varakozasido))
         
-print('\n6. feladat:')
+print('\n6. feladat')
 print(f'Az utolsó bekapcsolt telefonáló azonosítója: {bekapcsolt[-1].azonosito}, várakozási ideje: {bekapcsolt[-1].varakozas} másodperc')
 
 
