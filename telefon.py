@@ -27,12 +27,14 @@ class BekapcsoltAdatok:
         self.bef = ' '.join(vissza(self.bef))
         return f'{self.azonosito} {self.kezd} {self.bef}\n'
 
+
 def vissza(mp):
     o = math.floor(mp/3600)
     mp -= o*3600
     p = math.floor(mp/60)
     mp -= p*60
     return [str(o), str(p), str(mp)]
+
 
 f = open('hivas.txt', 'rt')
 
@@ -64,6 +66,7 @@ for h in hivasok:
     hivasidoLista.append(hivasido)
 
 print(f'A leghosszabb hívás hossza {max(hivasidoLista)} másodperc, sorszáma: {hivasidoLista.index((max(hivasidoLista)))+1}')
+
 
 print('\n5. feladat')
 
@@ -140,7 +143,7 @@ for i in range(1, len(munkaidonbelul)):
 
         bekapcsolt.append(BekapcsoltAdatok(azonosito, kezd, bef, varakozasido))
         
-print('6. feladat:')
+print('\n6. feladat:')
 print(f'Az utolsó bekapcsolt telefonáló azonosítója: {bekapcsolt[-1].azonosito}, várakozási ideje: {bekapcsolt[-1].varakozas} másodperc')
 
 
