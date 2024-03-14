@@ -20,15 +20,19 @@ class BekapcsoltAdatok:
         self.varakozas = int(varakozas)
 
     def __str__(self):
-        return f'{self.azonosito} {vissza(self.kezd)} {vissza(self.bef)} {self.varakozas}'
+        return f'{self.azonosito} {self.kezd} {self.bef} {self.varakozas}'
 
+    def hetedikfeladat(self):
+        self.kezd = ' '.join(vissza(self.kezd))
+        self.bef = ' '.join(vissza(self.bef))
+        return f'{self.azonosito} {self.kezd} {self.bef}\n'
 
 def vissza(mp):
     o = math.floor(mp/3600)
     mp -= o*3600
     p = math.floor(mp/60)
     mp -= p*60
-    return o, p, mp
+    return [str(o), str(p), str(mp)]
 
 f = open('hivas.txt', 'rt')
 
@@ -136,7 +140,13 @@ for i in range(1, len(munkaidonbelul)):
 
         bekapcsolt.append(BekapcsoltAdatok(azonosito, kezd, bef, varakozasido))
         
-
 print('6. feladat:')
 print(f'Az utolsó bekapcsolt telefonáló azonosítója: {bekapcsolt[-1].azonosito}, várakozási ideje: {bekapcsolt[-1].varakozas} másodperc')
 
+
+sikerestxt = open('sikeres.txt', 'wt')
+
+for b in bekapcsolt:
+    sikerestxt.write(b.hetedikfeladat())
+
+sikerestxt.close()
