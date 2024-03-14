@@ -1,14 +1,28 @@
 import math
 class Szamolas():
     def __init__(self, o, p, mp):
-        self.o = o
-        self.p = p
-        self.mp = mp
+        self.o = int(o)
+        self.p = int(p)
+        self.mp = int(mp)
+
+    def __str__(self):
+        return f'{self.o} óra {self.p} perc {self.mp} másodperc'
 
     def mpbe(self):
-        mp = int(self.mp) + 60*int(self.p) + 3600*int(self.o)
+        mp = self.mp + 60*self.p + 3600*self.o
         return mp
-    
+
+class BekapcsoltAdatok:
+    def __init__(self, azonosito, kezd, bef, varakozas):
+        self.azonosito = int(azonosito)
+        self.kezd = int(kezd)
+        self.bef = int(bef)
+        self.varakozas = int(varakozas)
+
+    def __str__(self):
+        return f'{self.azonosito} {vissza(self.kezd)} {vissza(self.bef)} {self.varakozas}'
+
+
 def vissza(mp):
     o = math.floor(mp/3600)
     mp -= o*3600
@@ -92,4 +106,37 @@ for h in hivasok:
 if len(hivok) == 0:
     print("Nem volt beszélő.")
 else:
-    print(f'{len(hivok)-1} hívó várakozik, a {beszelo}. hívóval beszél az alkalmazott')
+    print(f'{len(hivok)-1} hívó várakozott; a {beszelo}. hívóval beszélt az alkalmazott.')
+
+
+
+munkaidonbelul = []
+
+for h in hivasok:
+    kezd = h[0].mpbe()
+    bef = h[1].mpbe()
+
+    if bef > Szamolas(8,0,0).mpbe() and kezd < Szamolas(12,0,0).mpbe():
+        munkaidonbelul.append([kezd, bef, hivasok.index(h)+1])
+
+
+bekapcsolt = []
+varakozasido = 0
+bekapcsolt.append(BekapcsoltAdatok(munkaidonbelul[0][2], munkaidonbelul[0][0], munkaidonbelul[0][1], 0))
+if bekapcsolt[0].kezd < Szamolas(8,0,0).mpbe():
+    bekapcsolt[0].kezd = Szamolas(8,0,0).mpbe()
+
+for i in range(1, len(munkaidonbelul)):
+    kezd = munkaidonbelul[i][0]
+    bef = munkaidonbelul[i][1]
+    if bef > bekapcsolt[-1].bef:
+        varakozasido = bekapcsolt[-1].bef - kezd 
+        kezd = bekapcsolt[-1].bef
+        azonosito = munkaidonbelul[i][2]
+
+        bekapcsolt.append(BekapcsoltAdatok(azonosito, kezd, bef, varakozasido))
+        
+
+print('6. feladat:')
+print(f'Az utolsó bekapcsolt telefonáló azonosítója: {bekapcsolt[-1].azonosito}, várakozási ideje: {bekapcsolt[-1].varakozas} másodperc')
+
